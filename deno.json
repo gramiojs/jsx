@@ -1,0 +1,16 @@
+{
+    "name": "@gramio/jsx",
+    "version": "0.0.1",
+    "exports": "./src/jsx-runtime.ts",
+    "publish": {
+        "include": [
+            "deno.json",
+            "src",
+            "README.md",
+            "LICENSE"
+        ]
+    },
+    "imports": {
+        "gramio": "jsr:@gramio/core@^0.1.5"
+    }
+}

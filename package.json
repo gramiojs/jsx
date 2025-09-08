@@ -1,0 +1,47 @@
+{
+	"name": "@gramio/jsx",
+	"version": "0.0.1",
+	"description": "Use JSX to format your bot Telegram messages",
+	"keywords": ["gramio", "telegram", "tma", "webapp", "jsx"],
+	"homepage": "https://github.com/gramiojs/jsx",
+	"readme": "https://github.com/gramiojs/jsx",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/gramiojs/jsx.git"
+	},
+	"author": {
+		"url": "https://github.com/kravetsone",
+		"name": "kravets"
+	},
+	"contributors": [{
+		"name": "zh3nya",
+		"url": "https://github.com/zzh3nya"
+	}],
+	"exports": {
+		"./jsx-runtime": {
+			"types": "./dist/jsx-runtime.d.ts",
+			"import": "./dist/jsx-runtime.js"
+		},
+		"./jsx-dev-runtime": {
+			"types": "./dist/jsx-dev-runtime.d.ts",
+			"import": "./dist/jsx-dev-runtime.js"
+		}
+	},
+	"scripts": {
+		"prepublishOnly": "bunx pkgroll && tsc"
+	},
+	"type": "module",
+	"types": "./dist/jsx-runtime.d.ts",
+	"files": ["dist"],
+	"license": "MIT",
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/bun": "^1.2.8",
+		"pkgroll": "^2.11.2",
+		"typescript": "^5.8.2"
+	},
+	"dependencies": {
+		"@gramio/types": "^9.0.1",
+		"gramio": "^0.4.11"
+	}
+}
