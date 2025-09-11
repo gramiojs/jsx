@@ -38,11 +38,15 @@ jobs:
             - name: Install modules
               run: bun install
 
+
             - name: Prepare to JSR publish
               run: bun scripts/prepare-jsr.ts
 
+
             - name: Type-check
-              run: tsc --noEmit
+              run: cd packages/jsx && tsc --noEmit
+
+
 
             # - name: Run tests
             #   run: bun test
@@ -50,10 +54,15 @@ jobs:
             #       TOKEN: ${{ secrets.BOT_TOKEN }}
 
             - name: Build package
-              run: bun prepublishOnly
+              run: bun --cwd packages/jsx prepublishOnly
+
+            - name: Example Type-check
+              run: cd examples/example-bot && tsc --noEmit
 
             - name: Run publint
               run: bunx publint
+              working-directory: packages/jsx
+
 
             # - name: Setup Deno
             #   uses: denoland/setup-deno@v1
@@ -61,6 +70,7 @@ jobs:
             # - name: Publish package to JSR
             #   if: ${{ github.event.inputs.publish_to_jsr }}
             #   run: deno publish --allow-dirty --unstable-sloppy-imports
+            #   working-directory: packages/jsx
 
             - name: Install Node
               uses: actions/setup-node@v4
@@ -71,6 +81,7 @@ jobs:
             - name: Publish package to NPM
               if: ${{ github.event.inputs.publish_to_npm }}
               run: npm publish --access public
+              working-directory: packages/jsx
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
                   BOT_TOKEN: ${{ secrets.BOT_TOKEN }}

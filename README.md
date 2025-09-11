@@ -26,67 +26,85 @@ Then in your **tsconfig.json**:
 ## Usage
 ```jsx
 await context.reply(
-  (
-    <>
-      {/* Basic formatting */}
-      <b>Bold text</b>
-      <br />
-      <i>Italic text</i>
-      <br />
-      <u>Underlined text</u>
-      <br />
-      <s>Strikethrough</s>
-      <br />
+			<>
+				{/* Basic formatting */}
+				<b>Bold text</b>
+				<br />
+				<i>Italic text</i>
+				<br />
+				<u>Underlined text</u>
+				<br />
+				<s>Strikethrough</s>
+				<br />
 
-      {/* Spoiler with nested bold */}
-      <spoiler>
-        <b>Bold spoiler</b>
-      </spoiler>
-      <br />
+				{/* Spoiler with nested bold */}
+				<spoiler>
+					<b>Bold spoiler</b>
+				</spoiler>
+				<br />
 
-      {/* Links and mentions */}
-      <a href="https://example.com">example.com</a>
-      <br />
-      <mention id={context.from.id}>
-        Your ID: {context.from.id}
-      </mention>
-      <br />
+				{/* Links and mentions */}
+				<a href="https://example.com">example.com</a>
+				<br />
+				<mention id={context.from.id}>Your ID: {context.from.id}</mention>
+				<br />
 
-      {/* Code blocks */}
-      <code>print("Hello")</code>
-      <br />
-      <pre>
-        {`function greet() {
-  console.log("Hello, world!");
+				{/* Code blocks */}
+				<code>print("Hello")</code>
+				<br />
+				<pre>
+					{`function greet() {
+console.log("Hello, world!");
 }`}
-      </pre>
-      <br />
+				</pre>
+				<br />
 
-      {/* Blockquotes */}
-      <blockquote>Simple blockquote</blockquote>
-      <br />
-      <blockquote-expandable>
-        Expandable
-        <br />
-        blockquote
-      </blockquote-expandable>
-      <br />
+				{/* Blockquotes */}
+				<blockquote>Simple blockquote</blockquote>
+				<br />
+				<blockquote expandable>
+					Expandable
+					<br />
+					blockquote
+					<br />
+					Expandable
+					<br />
+					blockquote
+					<br />
+					Expandable
+					<br />
+					blockquote
+				</blockquote>
+				<br />
 
-      {/* Custom emoji */}
-      <custom-emoji emojiId="5222106016283378623">👍</custom-emoji>
-    </>
-  ),
-  {
-    reply_markup: (
-      <keyboard>
-        <row>
-          <button callbackData="meow">Callback button</button>
-          <button url="https://example.com">Open link</button>
-        </row>
-      </keyboard>
-    ),
-  }
-);
+				{/* Custom emoji */}
+				<custom-emoji emojiId="5222106016283378623">👍</custom-emoji>
+			</>,
+			{
+				reply_markup: (
+					<keyboard inline>
+						<row>
+							<button callbackData="test">Normal</button>
+							<button url="https://example.com">Link</button>
+						</row>
+						<row>
+							<button
+								webApp={{ url: "https://example.com/" }}
+							>
+								WebApp
+							</button>
+							<button loginUrl={{ url: "https://example.com/login" }}>
+								Login
+							</button>
+						</row>
+						<row>
+							<button switchToChat="test">Switch</button>
+							<button switchToCurrentChat="test">Switch current</button>
+						</row>
+					</keyboard>
+				),
+			},
+		);
 ```
 
 # Notes

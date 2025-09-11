@@ -5,14 +5,16 @@ const version = execSync("npm pkg get version")
 	.toString()
 	.replace(/"|\n/gi, "");
 
-const jsrConfig = JSON.parse(String(fs.readFileSync("deno.json")));
+const jsrConfig = JSON.parse(String(fs.readFileSync("packages/jsx/deno.json")));
 
 jsrConfig.version = version;
 
-fs.writeFileSync("deno.json", JSON.stringify(jsrConfig, null, 4));
+fs.writeFileSync("packages/jsx/deno.json", JSON.stringify(jsrConfig, null, 4));
 
 try {
-	execSync("bun x @teidesu/slow-types-compiler@latest fix --entry deno.json");
+	execSync(
+		"cd packages/jsx && bunx @teidesu/slow-types-compiler@latest fix --entry deno.json",
+	);
 } catch (error) {
 	console.error(error);
 }
