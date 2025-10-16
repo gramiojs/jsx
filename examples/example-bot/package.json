@@ -1,0 +1,9 @@
+{
+	"name": "example-jsx-bot",
+	"type": "module",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": {
+		"@gramio/jsx": "workspace:*"
+	}
+}
