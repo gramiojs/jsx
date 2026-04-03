@@ -1,10 +1,11 @@
 {
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
-		"baseUrl": ".",
+		"rootDir": "./src",
 		"outDir": "./dist",
 		"jsx": "react-jsx",
 		"jsxImportSource": "@gramio/jsx"
 	},
-	"include": ["./src/*"]
+	"include": ["./src/*"],
+	"exclude": ["./src/**/*.test.*"]
 }
