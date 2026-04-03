@@ -68,7 +68,7 @@ jobs:
             #   uses: denoland/setup-deno@v1
 
             # - name: Publish package to JSR
-            #   if: ${{ github.event.inputs.publish_to_jsr }}
+            #   if: ${{ github.event.inputs.publish_to_jsr == 'true' }}
             #   run: deno publish --allow-dirty --unstable-sloppy-imports
             #   working-directory: packages/jsx
 
@@ -79,7 +79,7 @@ jobs:
                   registry-url: "https://registry.npmjs.org"
 
             - name: Publish package to NPM
-              if: ${{ github.event.inputs.publish_to_npm }}
+              if: ${{ github.event.inputs.publish_to_npm == 'true' }}
               run: npm publish --access public
               working-directory: packages/jsx
               env:
