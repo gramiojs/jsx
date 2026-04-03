@@ -15,6 +15,7 @@ import {
 	bold,
 	code,
 	customEmoji,
+	dateTime,
 	expandableBlockquote,
 	FormattableString,
 	format,
@@ -47,6 +48,11 @@ export namespace JSX {
 		mention: { id: number; children?: Node | Node[] };
 		"custom-emoji": {
 			emojiId: string;
+			children?: Node | Node[];
+		};
+		"date-time": {
+			unixTime: number;
+			format?: "r" | "w" | "d" | "D" | "t" | "T" | "wDT" | "Dt" | "wD" | "DT" | "wDt" | "dt" | "dT" | "wdt" | "wdT";
 			children?: Node | Node[];
 		};
 		code: { children?: Node | Node[] };
@@ -228,6 +234,12 @@ function jsx<K extends keyof JSX.IntrinsicElements>(
 			});
 		case "custom-emoji":
 			return customEmoji(renderedChildren, String(props?.emojiId ?? ""));
+		case "date-time":
+			return dateTime(
+				renderedChildren,
+				Number(props?.unixTime ?? 0),
+				props?.format as string | undefined,
+			);
 		case "fragment":
 			return renderedChildren;
 		case "text":

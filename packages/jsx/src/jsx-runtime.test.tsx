@@ -190,6 +190,46 @@ describe("link and mention elements", () => {
 	});
 });
 
+describe("date-time element", () => {
+	it("<date-time> renders date/time entity", () => {
+		const result = h("date-time", {
+			unixTime: 1735689600,
+			children: "Meeting",
+		}) as FormattableString;
+		expect(result.text).toBe("Meeting");
+		expect(result.entities).toEqual([
+			{ type: "date_time", offset: 0, length: 7, unix_time: 1735689600 },
+		]);
+	});
+
+	it("<date-time> supports format option", () => {
+		const result = h("date-time", {
+			unixTime: 1735689600,
+			format: "D",
+			children: "Jan 1",
+		}) as FormattableString;
+		expect(result.text).toBe("Jan 1");
+		expect(result.entities).toEqual([
+			{
+				type: "date_time",
+				offset: 0,
+				length: 5,
+				unix_time: 1735689600,
+				date_time_format: "D",
+			},
+		]);
+	});
+
+	it("<date-time> supports relative format", () => {
+		const result = h("date-time", {
+			unixTime: 1735689600,
+			format: "r",
+			children: "soon",
+		}) as FormattableString;
+		expect(result.entities[0].date_time_format).toBe("r");
+	});
+});
+
 describe("Fragment", () => {
 	it("renders children as-is", () => {
 		const result = Fragment({ children: "Hello" }) as FormattableString;
@@ -643,6 +683,35 @@ describe("integration with gramio bot", () => {
 		expect(markup.keyboard[0][1].text).toBe("Option B");
 		expect(markup.one_time_keyboard).toBe(true);
 		expect(markup.input_field_placeholder).toBe("Pick one");
+	});
+
+	it("bot sends message with date-time entity", async () => {
+		const bot = new Bot("test");
+
+		bot.on("message", (ctx) =>
+			ctx.send(
+				<>
+					Event: <date-time unixTime={1735689600} format="D">Jan 1, 2025</date-time>
+				</>,
+			),
+		);
+
+		const env = new TelegramTestEnvironment(bot);
+		const user = env.createUser({ first_name: "Frank" });
+
+		await user.sendMessage("when");
+
+		const sent = env.apiCalls[0].params.text as FormattableString;
+		expect(sent.text).toBe("Event: Jan 1, 2025");
+		expect(sent.entities).toEqual([
+			{
+				type: "date_time",
+				offset: 7,
+				length: 11,
+				unix_time: 1735689600,
+				date_time_format: "D",
+			},
+		]);
 	});
 
 	it("bot sends message via on('message') handler", async () => {
