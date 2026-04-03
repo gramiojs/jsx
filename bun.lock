@@ -11,6 +11,9 @@
       "dependencies": {
         "@gramio/jsx": "workspace:*",
       },
+      "devDependencies": {
+        "@types/bun": "^1.2.8",
+      },
     },
     "packages/jsx": {
       "name": "@gramio/jsx",
