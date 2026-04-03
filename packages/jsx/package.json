@@ -30,6 +30,7 @@
 		}
 	},
 	"scripts": {
+		"test": "bun test",
 		"prepublishOnly": "bunx pkgroll && tsc"
 	},
 	"type": "module",
@@ -38,12 +39,13 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
+		"@gramio/test": "^0.5.0",
 		"@types/bun": "^1.2.8",
 		"pkgroll": "^2.11.2",
 		"typescript": "^5.8.2"
 	},
 	"dependencies": {
-		"@gramio/types": "^9.0.1",
-		"gramio": "^0.4.11"
+		"@gramio/types": "^9.6.0",
+		"gramio": "^0.8.1"
 	}
 }
