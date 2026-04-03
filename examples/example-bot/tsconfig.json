@@ -2,7 +2,8 @@
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
 		"jsx": "react-jsx",
-		"jsxImportSource": "@gramio/jsx"
+		"jsxImportSource": "@gramio/jsx",
+		"types": ["node"]
 	},
 	"include": ["./**/*"]
 }
