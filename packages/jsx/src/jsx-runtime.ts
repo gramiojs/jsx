@@ -72,6 +72,7 @@ export namespace JSX {
 					switchToChosenChat?: string | TelegramSwitchInlineQueryChosenChat;
 					copyText?: string;
 					game?: TelegramCallbackGame;
+					disabled?: boolean;
 			  }
 			| {
 					kind?: "reply";
@@ -86,6 +87,7 @@ export namespace JSX {
 		keyboard:
 			| {
 					inline: true;
+					forceReply?: boolean;
 					children?: InlineRowNode[];
 			  }
 			| {
@@ -95,6 +97,7 @@ export namespace JSX {
 					resized?: boolean;
 					oneTime?: boolean;
 					placeholder?: string;
+					forceReply?: boolean;
 					children?: ReplyRowNode[];
 			  };
 
@@ -117,6 +120,7 @@ type InlineButtonNode = {
 	copyText?: string;
 	game?: TelegramCallbackGame;
 	pay?: boolean;
+	disabled?: boolean;
 };
 
 type ReplyButtonNode = {
@@ -145,6 +149,7 @@ type KeyboardNode = {
 	resized?: boolean;
 	oneTime?: boolean;
 	placeholder?: string;
+	forceReply?: boolean;
 };
 
 function normalizeChildren(children: unknown): Node[] {
@@ -265,10 +270,13 @@ function extractKeyboard(node: KeyboardNode): KeyboardResult {
 
 	if (node.inline) {
 		kb = new InlineKeyboard();
+		if (node.forceReply !== undefined) kb.forceReply(node.forceReply);
 
 		for (const row of node.rows) {
 			for (const btn of row.buttons) {
-				if ("callbackData" in btn && btn.callbackData)
+				if ("disabled" in btn && btn.disabled)
+					kb.disabled(btn.text);
+				else if ("callbackData" in btn && btn.callbackData)
 					kb.text(btn.text, btn.callbackData);
 				else if ("url" in btn && btn.url) kb.url(btn.text, btn.url);
 				else if ("webApp" in btn && btn.webApp)
@@ -290,6 +298,7 @@ function extractKeyboard(node: KeyboardNode): KeyboardResult {
 		}
 	} else {
 		kb = new Keyboard();
+		if (node.forceReply !== undefined) kb.forceReply(node.forceReply);
 		if ("persistent" in node && node.persistent) kb.persistent();
 		if ("oneTime" in node && node.oneTime) kb.oneTime();
 		if ("selective" in node && node.selective) kb.selective();

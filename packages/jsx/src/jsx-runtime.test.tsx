@@ -270,6 +270,20 @@ describe("nested elements", () => {
 });
 
 describe("inline keyboard", () => {
+	it("renders a disabled button and force_reply", () => {
+		const btn = h("button", { disabled: true, children: "Soon" });
+		const row = h("row", { children: btn });
+		const kb = h("keyboard", {
+			inline: true,
+			forceReply: true,
+			children: row,
+		}) as { toJSON: () => unknown };
+
+		expect(kb.toJSON()).toEqual({
+			inline_keyboard: [[{ text: "Soon", disabled: {} }]],
+			force_reply: true,
+		});
+	});
 	it("renders callback button", () => {
 		const btn = h("button", {
 			callbackData: "action:1",
@@ -418,6 +432,21 @@ describe("inline keyboard", () => {
 });
 
 describe("reply keyboard", () => {
+	it("supports force_reply, including explicit false", () => {
+		const btn = h("button", { children: "Hello" });
+		const row = h("row", { children: btn });
+		const enabled = h("keyboard", {
+			forceReply: true,
+			children: row,
+		}) as { toJSON: () => unknown };
+		const disabled = h("keyboard", {
+			forceReply: false,
+			children: row,
+		}) as { toJSON: () => unknown };
+
+		expect(enabled.toJSON()).toMatchObject({ force_reply: true });
+		expect(disabled.toJSON()).toMatchObject({ force_reply: false });
+	});
 	it("renders simple text button", () => {
 		const btn = h("button", { children: "Hello" });
 		const row = h("row", { children: btn });

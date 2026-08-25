@@ -1,6 +1,6 @@
 {
 	"name": "@gramio/jsx",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "Use JSX to format your bot Telegram messages",
 	"keywords": ["gramio", "telegram", "tma", "webapp", "jsx"],
 	"homepage": "https://github.com/gramiojs/jsx",
@@ -9,15 +9,18 @@
 		"type": "git",
 		"url": "git+https://github.com/gramiojs/jsx.git"
 	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"author": {
-		"url": "https://github.com/kravetsone",
-		"name": "kravets"
+		"name": "zh3nya",
+		"url": "https://github.com/zzh3nya"
 	},
 	"contributors": [
 		{
-			"name": "zh3nya",
-			"url": "https://github.com/zzh3nya"
-		}
+		"url": "https://github.com/kravetsone",
+		"name": "kravets"
+	}
 	],
 	"exports": {
 		"./jsx-runtime": {
@@ -27,11 +30,19 @@
 		"./jsx-dev-runtime": {
 			"types": "./dist/jsx-dev-runtime.d.ts",
 			"import": "./dist/jsx-dev-runtime.js"
+		},
+		"./rich/jsx-runtime": {
+			"types": "./dist/rich/jsx-runtime.d.ts",
+			"import": "./dist/rich/jsx-runtime.js"
+		},
+		"./rich/jsx-dev-runtime": {
+			"types": "./dist/rich/jsx-dev-runtime.d.ts",
+			"import": "./dist/rich/jsx-dev-runtime.js"
 		}
 	},
 	"scripts": {
 		"test": "bun test",
-		"prepublishOnly": "bunx pkgroll && tsc"
+		"prepublishOnly": "bunx pkgroll && bunx tsc"
 	},
 	"type": "module",
 	"types": "./dist/jsx-runtime.d.ts",
@@ -39,13 +50,13 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
-		"@gramio/test": "^0.5.0",
+		"@gramio/test": "^0.8.0",
 		"@types/bun": "^1.2.8",
 		"pkgroll": "^2.11.2",
 		"typescript": "^5.8.2"
 	},
 	"dependencies": {
-		"@gramio/types": "^9.6.0",
-		"gramio": "^0.8.1"
+		"@gramio/types": "^10.3.1",
+		"gramio": "^0.14.0"
 	}
 }

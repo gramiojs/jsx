@@ -6,6 +6,6 @@
 		"jsx": "react-jsx",
 		"jsxImportSource": "@gramio/jsx"
 	},
-	"include": ["./src/*"],
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
 	"exclude": ["./src/**/*.test.*"]
 }
