@@ -33,7 +33,8 @@ jobs:
 
             - id: changelog
               name: Generate changelog
-              run: bun scripts/generate-changelog.ts
+              run: bun ../../scripts/generate-changelog.ts
+              working-directory: packages/jsx
 
             - name: Install modules
               run: bun install

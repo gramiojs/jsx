@@ -1,9 +1,10 @@
 import { execSync } from "node:child_process";
 import fs from "node:fs";
 
-const version = execSync("npm pkg get version")
-	.toString()
-	.replace(/"|\n/gi, "");
+const packageConfig = JSON.parse(
+	String(fs.readFileSync("packages/jsx/package.json")),
+);
+const version = packageConfig.version;
 
 const jsrConfig = JSON.parse(String(fs.readFileSync("packages/jsx/deno.json")));
 
