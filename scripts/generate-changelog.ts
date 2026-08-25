@@ -22,7 +22,9 @@ const commits = execSync(
 
 console.log(getLatestTag(), commits);
 
-const version = execSync("npm pkg get version").toString().replace(/"/gi, "");
+const version = JSON.parse(
+	execSync("npm pkg get version --workspaces=false").toString(),
+) as string;
 
 const delimiter = `---${randomUUID()}---${EOL}`;
 
